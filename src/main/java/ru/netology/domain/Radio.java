@@ -2,74 +2,82 @@ package ru.netology.domain;
 
 public class Radio {
     private int currentStation;
-    private int currentVolumе;
+    private int amountStation = 10;
+    private int minStation;
+
+    private int currentVolume;
+    private int maxVolume = 100;
+    private int minVolume;
+
+    public int getAmountStation() {
+        return amountStation;
+    }
+
+    public Radio(int amountStation) {
+        this.amountStation = amountStation;
+    }
+
+    public Radio() {
+
+    }
 
     public void setCurrentStation(int currentStation) { // Номер текущей станции от 0 до 9
-        if (currentStation < 0) {
+        if (currentStation < minStation) {
             return;
         }
-        if (currentStation > 9) {
+        if (currentStation > amountStation - 1) {
             return;
         }
         this.currentStation = currentStation;
 
     }
 
-    public void next() {   // переключение на следующую станцию
-        if (currentStation >= 9) {
-            currentStation = 0;
-        } else {
-            currentStation = currentStation + 1;
-        }
-
-    }
-
-    public void prev() {  // предыдущая станция
-        if (currentStation <= 0) {
-            currentStation = 9;
-        } else {
-            currentStation = currentStation - 1;
-        }
-
-    }
-
-    public void customStation() {  //пользовательская станция
-        int newCurrentStation = getCurrentStation();
-        setCurrentStation(newCurrentStation);
-    }
-
-    public int getCurrentStation() {  // получение текущего значения станции
+    public int getCurrentStation() {
         return currentStation;
     }
 
-    public void setCurrentVolumе(int currentVolumе) { // пределы громкости от 0 до 10
-        if (currentVolumе < 0) {
+    public void setNextStation() {   // переключение на следующую станцию
+        if (currentStation == amountStation - 1) {
+            currentStation = 0;
+        } else {
+            currentStation++;
+        }
+    }
+
+    public void setPrevStation() {  // предыдущая станция
+        if (currentStation == 0) {
+            currentStation = amountStation - 1;
+        } else {
+            currentStation--;
+        }
+    }
+
+    public void setCurrentVolume(int currentVolume) { // пределы громкости от 0 до 100
+        if (currentVolume < minVolume) {
             return;
         }
-        if (currentVolumе > 10) {
+        if (currentVolume > maxVolume) {
             return;
         }
-        this.currentVolumе = currentVolumе;
+        this.currentVolume = currentVolume;
     }
 
-    public int getCurrentVolum() {  // получение текущего значения громкости
-        return currentVolumе;
+    public int getCurrentVolume() {  // получение текущего значения громкости
+        return currentVolume;
     }
 
-    public void increaseVolume() {  // достижение максимального уровня громкости
-        if (currentVolumе >= 10) {
-            currentVolumе = 10;
-        } else {
-            currentVolumе = currentVolumе + 1;
+    public void setIncreaseVolume() {  // достижение максимального уровня громкости
+        if (currentVolume == maxVolume) {
+            return;
         }
+        currentVolume++;
     }
 
-    public void decreaseVolume() {  // достижение минимального уровня громкости
-        if (currentVolumе <= 0) {
-            currentVolumе = 0;
-        } else {
-            currentVolumе = currentVolumе - 1;
+    public void setDecreaseVolume() {  // достижение минимального уровня громкости
+        if (currentVolume == 0) {
+            return;
         }
+        currentVolume--;
     }
 
 }
